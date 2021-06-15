@@ -31,6 +31,33 @@ func (t *SegmentService) Find(id string) (Segment, error) {
 	return t.Repository.find(id)
 }
 
+func (l *SegmentList) AddressableList(id string) *AddressableList {
+	if l == nil {
+		return nil
+	}
+
+	data := make([]Addressable, len(l.Segments))
+	for i, s := range l.Segments {
+		data[i] = s.Addressable()
+	}
+
+	return &AddressableList{
+		Type:       "list",
+		Data:       data,
+		Url:        fmt.Sprintf("/contacts/%s/segments", id),
+		TotalCount: int64(len(data)),
+		HasMore:    false,
+	}
+}
+
+func (s *Segment) Addressable() Addressable {
+	return Addressable{
+		Type: "segment",
+		ID:   s.ID,
+		Url:  fmt.Sprintf("segments/%s", s.ID),
+	}
+}
+
 func (s Segment) String() string {
 	return fmt.Sprintf("[intercom] segment { id: %s, type: %s }", s.ID, s.PersonType)
 }

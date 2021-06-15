@@ -120,6 +120,33 @@ func (c *CompanyService) Save(user *Company) (Company, error) {
 	return c.Repository.save(user)
 }
 
+func (l *CompanyList) AddressableList(id string) *AddressableList {
+	if l == nil {
+		return nil
+	}
+
+	data := make([]Addressable, len(l.Companies))
+	for i, c := range l.Companies {
+		data[i] = c.Addressable()
+	}
+
+	return &AddressableList{
+		Type:       "list",
+		Data:       data,
+		Url:        fmt.Sprintf("/contacts/%s/companies", id),
+		TotalCount: int64(len(data)),
+		HasMore:    false,
+	}
+}
+
+func (c *Company) Addressable() Addressable {
+	return Addressable{
+		Type: "company",
+		ID:   c.ID,
+		Url:  fmt.Sprintf("companies/%s", c.ID),
+	}
+}
+
 func (c Company) String() string {
 	return fmt.Sprintf("[intercom] company { id: %s name: %s, company_id: %s }", c.ID, c.Name, c.CompanyID)
 }

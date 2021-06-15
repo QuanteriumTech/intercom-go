@@ -2,7 +2,6 @@
   "type": "user.list",
   "pages": {
     "type": "pages",
-    "next": "https://api.intercom.io/users?per_page=50&page=2",
     "page": 1,
     "per_page": 50,
     "total_pages": 4

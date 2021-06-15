@@ -1,159 +1,128 @@
 {
-	"type": "contact.list",
-	"pages": {
-		"type": "pages",
-		"next": "https://api.intercom.io/contacts?per_page=50&page=2",
-		"page": 1,
-		"per_page": 50,
-		"total_pages": 4
-	},
-	"contacts": [
-		{
-			"type": "contact",
-			"id": "54c42e7ea7a765fa7",
-			"user_id": "123",
-			"email": "mycontact@example.io",
-			"anonymous": true,
-			"name": "My Contact",
-			"pseudonym": "Violet Bear",
-			"avatar": {
-				"type": "avatar",
-				"image_url": "https://secure.gravatar.com/avatar/712360dasd24?s=24&d=identicon"
-			},
-			"app_id": "z4asp0",
-			"companies": {
-				"type": "company.list",
-				"companies": [
-					{
-						"type": "company",
-						"company_id": "762",
-						"id": "54c42ed71623d8caa",
-						"name": "Important Company"
-					},
-					{
-						"type": "company",
-						"company_id": "231",
-						"id": "54c42e9d317e41585da7c01",
-						"name": "Side Company"
-					}
-				]
-			},
-			"location_data": {
-				"type": "location_data",
-				"city_name": "",
-				"continent_code": "EU",
-				"country_name": "United Kingdom",
-				"latitude": 51.5,
-				"longitude": -0.12999999999999545,
-				"postal_code": "",
-				"region_name": null,
-				"timezone": "Europe/London",
-				"country_code": "GBR"
-			},
-			"last_request_at": 1422143201,
-			"created_at": 1422143102,
-			"remote_created_at": 1422143117,
-			"signed_up_at": 1422143117,
-			"updated_at": 1422143201,
-			"session_count": 4,
-			"social_profiles": {
-				"type": "social_profile.list",
-				"social_profiles": []
-			},
-			"unsubscribed_from_emails": false,
-			"user_agent_data": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36",
-			"tags": {
-				"type": "tag.list",
-				"tags": []
-			},
-			"segments": {
-				"type": "segment.list",
-				"segments": [
-					{
-						"type": "segment",
-						"id": "5125603c45b438c731000029"
-					}
-				]
-			},
-			"custom_attributes": {
-				"is_awesome": true
-			}
-		},
-		{
-			"type": "contact",
-			"id": "54c42e2e924b067904615236",
-			"user_id": "52454",
-			"email": "mycontact@example.io",
-			"anonymous": true,
-			"name": "Mr Go Lang",
-			"pseudonym": "Pink Banana",
-			"avatar": {
-				"type": "avatar",
-				"image_url": "https://secure.gravatar.com/avatar/4e56f762b2a3f8ccdf123d569cee7b6?s=24&d=identicon"
-			},
-			"app_id": "tx2p130c",
-			"companies": {
-				"type": "company.list",
-				"companies": [
-					{
-						"type": "company",
-						"company_id": "762",
-						"id": "54c42ed71623d8caa",
-						"name": "Important Company"
-					}
-				]
-			},
-			"location_data": {
-				"type": "location_data",
-				"city_name": "",
-				"continent_code": "EU",
-				"country_name": "United Kingdom",
-				"latitude": 51.5,
-				"longitude": -0.12999999999999545,
-				"postal_code": "",
-				"region_name": null,
-				"timezone": "Europe/London",
-				"country_code": "GBR"
-			},
-			"last_request_at": 1422143075,
-			"created_at": 1422143022,
-			"remote_created_at": 1422143004,
-			"signed_up_at": 1422143004,
-			"updated_at": 1422143075,
-			"session_count": 1,
-			"social_profiles": {
-				"type": "social_profile.list",
-				"social_profiles": []
-			},
-			"unsubscribed_from_emails": false,
-			"user_agent_data": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.104 Safari/537.36",
-			"tags": {
-				"type": "tag.list",
-				"tags": [
-					{
-						"type": "tag",
-						"id": "51390",
-						"name": "Awesome Contact"
-					}
-				]
-			},
-			"segments": {
-				"type": "segment.list",
-				"segments": [
-					{
-						"type": "segment",
-						"id": "5125603c45b438c731000029"
-					},
-					{
-						"type": "segment",
-						"id": "5125603c45b438c7310000b1"
-					}
-				]
-			},
-			"custom_attributes": {
-				"is_awesome": false
-			}
-		}
-	],
-	"total_count": 180
+  "type": "list",
+  "data": [
+    {
+      "type": "contact",
+      "id": "5ba682d23d7cf92bef87bfd4",
+      "workspace_id": "ecahpwf5",
+      "external_id": "25",
+      "role": "user",
+      "email": "wash@serenity.io",
+      "phone": "+1234567890",
+      "name": "Hoban Washburn",
+      "avatar": "https://example.org/128Wash.jpg",
+      "owner_id": 127,
+      "social_profiles": {
+        "type": "list",
+        "data": [
+          {
+            "type": "social_profile",
+            "name": "Twitter",
+            "url": "http://twitter.com/th1sland"
+          }
+        ]
+      },
+      "unsubscribed_from_emails": false,
+      "created_at": 1571672154,
+      "updated_at": 1571672158,
+      "signed_up_at": 1571069751,
+      "last_seen_at": 1571069751,
+      "last_replied_at": 1571672158,
+      "last_contacted_at": 1571672158,
+      "last_email_opened_at": 1571673478,
+      "last_email_clicked_at": 1571676789,
+      "language_override": null,
+      "browser": "chrome",
+      "browser_version": "77.0.3865.90",
+      "browser_language": "en",
+      "os": "OS X 10.14.6",
+      "location": {
+        "type": "location",
+        "country": "Ireland",
+        "region": "Dublin",
+        "city": "Dublin"
+      },
+      "android_app_name": null,
+      "android_app_version": null,
+      "android_device": null,
+      "android_os_version": null,
+      "android_sdk_version": null,
+      "android_last_seen_at": null,
+      "ios_app_name": null,
+      "ios_app_version": null,
+      "ios_device": null,
+      "ios_os_version": null,
+      "ios_sdk_version": null,
+      "ios_last_seen_at": null,
+      "custom_attributes": {
+        "paid_subscriber": true,
+        "monthly_spend": 155.5,
+        "team_mates": 1
+      },
+      "tags": {
+        "type": "list",
+        "data": [
+          {
+            "type": "tag",
+            "id": "2",
+            "url": "/tags/2"
+          },
+          {
+            "type": "tag",
+            "id": "4",
+            "url": "/tags/4"
+          },
+          {
+            "type": "tag",
+            "id": "5",
+            "url": "/tags/5"
+          }
+        ],
+        "url": "/contacts/5ba682d23d7cf92bef87bfd4/tags"
+      },
+      "notes": {
+        "type": "list",
+        "data": [
+          {
+            "type": "note",
+            "id": "20114858",
+            "url": "/notes/20114858"
+          }
+        ],
+        "url": "/contacts/5ba682d23d7cf92bef87bfd4/notes"
+      },
+      "companies": {
+        "type": "list",
+        "data": [
+          {
+            "type": "company",
+            "id": "5ba686093d7cf93552a3dc99",
+            "url": "/companies/5ba686093d7cf93552a3dc99"
+          },
+          {
+            "type": "company",
+            "id": "5cee64a03d7cf90c51b36f19",
+            "url": "/companies/5cee64a03d7cf90c51b36f19"
+          },
+          {
+            "type": "company",
+            "id": "5d7668883d7cf944dbc5c791",
+            "url": "/companies/5d7668883d7cf944dbc5c791"
+          }
+        ],
+        "url": "/contacts/5ba682d23d7cf92bef87bfd4/companies"
+      }
+    }
+  ],
+  "total_count": 436,
+  "pages": {
+    "type": "pages",
+    "next": {
+      "page": 2,
+      "starting_after": "WzE1NzEzMTc0NDYwMDAsIjViYTY4MmQyM2Q3Y2Y5MmJlZjg3YmZkNCIsMl0="
+    },
+    "page": 1,
+    "per_page": 1,
+    "total_pages": 436
+  }
 }

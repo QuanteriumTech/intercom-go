@@ -9,8 +9,8 @@ type UserService struct {
 
 // UserList holds a list of Users and paging information
 type UserList struct {
-	Pages PageParams
-	Users []User
+	Pages       PageParams
+	Users       []User
 	ScrollParam string `json:"scroll_param,omitempty"`
 }
 
@@ -66,6 +66,7 @@ type SocialProfileList struct {
 
 // SocialProfile represents a social account for a User.
 type SocialProfile struct {
+	Type     string `json:"type,omitempty"`
 	Name     string `json:"name,omitempty"`
 	ID       string `json:"id,omitempty"`
 	Username string `json:"username,omitempty"`
@@ -81,7 +82,7 @@ type UserIdentifiers struct {
 
 // UserAvatar represents an avatar for a User.
 type UserAvatar struct {
-	Type string `json:"type,omitempty"`
+	Type     string `json:"type,omitempty"`
 	ImageURL string `json:"image_url,omitempty"`
 }
 
@@ -92,7 +93,7 @@ type userListParams struct {
 }
 
 type scrollParams struct {
-	ScrollParam  string `url:"scroll_param,omitempty"`
+	ScrollParam string `url:"scroll_param,omitempty"`
 }
 
 // FindByID looks up a User by their Intercom ID.
@@ -121,7 +122,7 @@ func (u *UserService) List(params PageParams) (UserList, error) {
 
 // List all Users for App via Scroll API
 func (u *UserService) Scroll(scrollParam string) (UserList, error) {
-       return u.Repository.scroll(scrollParam)
+	return u.Repository.scroll(scrollParam)
 }
 
 // List Users by Segment.
@@ -153,8 +154,47 @@ func (u User) MessageAddress() MessageAddress {
 	}
 }
 
+// Contact gets the contact for an User in order to use the latest API.
+func (u User) Contact() *Contact {
+	contact := &Contact{
+		ID:               u.ID,
+		Email:            u.Email,
+		Phone:            u.Phone,
+		UserID:           u.UserID,
+		Name:             u.Name,
+		SignedUpAt:       u.SignedUpAt,
+		LastSeenAt:       u.LastRequestAt,
+		LastRepliedAt:    u.LastRequestAt,
+		CreatedAt:        u.CreatedAt,
+		UpdatedAt:        u.UpdatedAt,
+		SocialProfiles:   u.SocialProfiles,
+		Tags:             u.Tags.AddressableList(u.ID),
+		Companies:        u.Companies.AddressableList(u.ID),
+		CustomAttributes: u.CustomAttributes,
+	}
+	if u.UnsubscribedFromEmails != nil {
+		contact.UnsubscribedFromEmails = *u.UnsubscribedFromEmails
+	}
+	if u.Avatar != nil {
+		contact.Avatar = u.Avatar.ImageURL
+	}
+	if u.LocationData != nil {
+		contact.Location = u.LocationData.Location()
+	}
+	return contact
+}
+
 func (u User) String() string {
 	return fmt.Sprintf("[intercom] user { id: %s name: %s, user_id: %s, email: %s }", u.ID, u.Name, u.UserID, u.Email)
+}
+
+func (l *LocationData) Location() *Location {
+	return &Location{
+		Type:    "location",
+		Country: l.CountryName,
+		Region:  l.RegionName,
+		City:    l.CityName,
+	}
 }
 
 func (l LocationData) String() string {

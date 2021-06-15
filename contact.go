@@ -9,36 +9,103 @@ type ContactService struct {
 
 // ContactList holds a list of Contacts and paging information
 type ContactList struct {
-	Pages    PageParams
-	Contacts []Contact
-	ScrollParam string `json:"scroll_param,omitempty"`
+	Contacts   []Contact  `json:"data"`
+	Pages      PageParams `json:"pages"`
+	TotalCount int64      `json:"total_count"`
 }
 
 // Contact represents a Contact within Intercom.
 // Not all of the fields are writeable to the API, non-writeable fields are
 // stripped out from the request. Please see the API documentation for details.
 type Contact struct {
-	ID                     string                 `json:"id,omitempty"`
-	Email                  string                 `json:"email,omitempty"`
-	Phone                  string                 `json:"phone,omitempty"`
-	UserID                 string                 `json:"user_id,omitempty"`
-	Name                   string                 `json:"name,omitempty"`
-	Avatar                 *UserAvatar            `json:"avatar,omitempty"`
-	LocationData           *LocationData          `json:"location_data,omitempty"`
-	LastRequestAt          int64                  `json:"last_request_at,omitempty"`
-	CreatedAt              int64                  `json:"created_at,omitempty"`
-	UpdatedAt              int64                  `json:"updated_at,omitempty"`
-	SessionCount           int64                  `json:"session_count,omitempty"`
-	LastSeenIP             string                 `json:"last_seen_ip,omitempty"`
-	SocialProfiles         *SocialProfileList     `json:"social_profiles,omitempty"`
-	UnsubscribedFromEmails *bool                  `json:"unsubscribed_from_emails,omitempty"`
-	UserAgentData          string                 `json:"user_agent_data,omitempty"`
-	Tags                   *TagList               `json:"tags,omitempty"`
-	Segments               *SegmentList           `json:"segments,omitempty"`
-	Companies              *CompanyList           `json:"companies,omitempty"`
-	CustomAttributes       map[string]interface{} `json:"custom_attributes,omitempty"`
-	UpdateLastRequestAt    *bool                  `json:"update_last_request_at,omitempty"`
-	NewSession             *bool                  `json:"new_session,omitempty"`
+	// The type of object - contact.
+	Type string `json:"type,omitempty"`
+	// The unique identifier for the contact which is given by Intercom.
+	ID string `json:"id,omitempty"`
+	// The id of the workspace which the contact belongs to.
+	WorkspaceID string `json:"workspace_id,omitempty"`
+	// A unique identifier for the contact which is given to Intercom.
+	UserID string `json:"external_id,omitempty"`
+	// The role of the contact - user or lead.
+	Role string `json:"role,omitempty"`
+	// The contacts email.
+	Email string `json:"email,omitempty"`
+	// The contacts phone.
+	Phone string `json:"phone,omitempty"`
+	// The contacts name.
+	Name string `json:"name,omitempty"`
+	// An image URL containing the avatar of a contact.
+	Avatar string `json:"avatar,omitempty"`
+	// The id of an admin that has been assigned account ownership of the contact.
+	OwnerID int64 `json:"owner_id,omitempty"`
+	// A list of social profiles associated to the contact.
+	SocialProfiles *SocialProfileList `json:"social_profiles,omitempty"`
+	// Whether the contact has had an email sent to them hard bounce.
+	HasHardBounced bool `json:"has_hard_bounced"`
+	// Whether the contact has marked an email sent to them as spam.
+	MarkedEmailAsSpam bool `json:"marked_email_as_spam"`
+	// Whether the contact is unsubscribed from emails.
+	UnsubscribedFromEmails bool `json:"unsubscribed_from_emails"`
+	// The time when the contact was created.
+	CreatedAt int64 `json:"created_at,omitempty"`
+	// The time when the contact was last updated.
+	UpdatedAt int64 `json:"updated_at,omitempty"`
+	// The time specified for when a contact signed up.
+	SignedUpAt int64 `json:"signed_up_at,omitempty"`
+	// The time when the contact was last seen (either where the Intercom Messenger was installed or when specified manually).
+	LastSeenAt int64 `json:"last_seen_at,omitempty"`
+	// The time when the contact last messaged in.
+	LastRepliedAt int64 `json:"last_replied_at,omitempty"`
+	// The time when the contact was last messaged.
+	LastContactedAt int64 `json:"last_contacted_at,omitempty"`
+	// The time when the contact last opened an email.
+	LastEmailOpenedAt int64 `json:"last_email_opened_at,omitempty"`
+	// The time when the contact last clicked a link in an email.
+	LastEmailClickedAt int64 `json:"last_email_clicked_at,omitempty"`
+	// A preferred language setting for the contact, used by the Intercom Messenger even if their browser settings change.
+	LanguageOverride string `json:"language_override,omitempty"`
+	// The name of the browser which the contact is using.
+	Browser string `json:"browser,omitempty"`
+	// The version of the browser which the contact is using.
+	BrowserVersion string `json:"browser_version,omitempty"`
+	// The language set by the browser which the contact is using.
+	BrowserLanguage string `json:"browser_language,omitempty"`
+	// The operating system which the contact is using.
+	Os string `json:"os,omitempty"`
+	// An object showing location details of the contact.
+	Location *Location `json:"location,omitempty"`
+	// The name of the Android app which the contact is using.
+	AndroidAppName string `json:"android_app_name,omitempty"`
+	// The version of the Android app which the contact is using.
+	AndroidAppVersion string `json:"android_app_version,omitempty"`
+	// The Android device which the contact is using.
+	AndroidDevice string `json:"android_device,omitempty"`
+	// The version of the Android OS which the contact is using.
+	AndroidOsVersion string `json:"android_os_version,omitempty"`
+	// The version of the Android SDK which the contact is using.
+	AndroidSdkVersion string `json:"android_sdk_version,omitempty"`
+	// The last time the contact used the Android app.
+	AndroidLastSeenAt int64 `json:"android_last_seen_at,omitempty"`
+	// The name of the iOS app which the contact is using.
+	IOSAppName string `json:"ios_app_name,omitempty"`
+	// The version of the iOS app which the contact is using.
+	IOSAppVersion string `json:"ios_app_version,omitempty"`
+	// The iOS device which the contact is using.
+	IOSDevice string `json:"ios_device,omitempty"`
+	// The version of iOS which the contact is using.
+	IOSOsVersion string `json:"ios_os_version,omitempty"`
+	// The version of the iOS SDK which the contact is using.
+	IOSSdkVersion string `json:"ios_sdk_version,omitempty"`
+	// The last time the contact used the iOS app.
+	IOSLastSeenAt int64 `json:"ios_last_seen_at,omitempty"`
+	// The custom attributes which are set for the contact.
+	CustomAttributes map[string]interface{} `json:"custom_attributes,omitempty"`
+	// The tags which have been added to the contact.
+	Tags *AddressableList `json:"tags,omitempty"`
+	// The notes which have been added to the contact.
+	Notes *AddressableList `json:"notes,omitempty"`
+	// The companies which the contact belongs to.
+	Companies *AddressableList `json:"companies,omitempty"`
 }
 
 type contactListParams struct {
@@ -69,7 +136,7 @@ func (c *ContactService) List(params PageParams) (ContactList, error) {
 
 // List all Contacts for App via Scroll API
 func (c *ContactService) Scroll(scrollParam string) (ContactList, error) {
-       return c.Repository.scroll(scrollParam)
+	return c.Repository.scroll(scrollParam)
 }
 
 // ListByEmail looks up a list of Contacts by their Email.

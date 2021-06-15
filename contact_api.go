@@ -49,14 +49,14 @@ func (api ContactAPI) list(params contactListParams) (ContactList, error) {
 }
 
 func (api ContactAPI) scroll(scrollParam string) (ContactList, error) {
-       contactList := ContactList{}
-       params := scrollParams{ ScrollParam: scrollParam }
-       data, err := api.httpClient.Get("/contacts/scroll", params)
-       if err != nil {
-               return contactList, err
-       }
-       err = json.Unmarshal(data, &contactList)
-       return contactList, err
+	contactList := ContactList{}
+	params := scrollParams{ScrollParam: scrollParam}
+	data, err := api.httpClient.Get("/contacts/scroll", params)
+	if err != nil {
+		return contactList, err
+	}
+	err = json.Unmarshal(data, &contactList)
+	return contactList, err
 }
 
 func (api ContactAPI) create(contact *Contact) (Contact, error) {
@@ -110,19 +110,21 @@ func (api ContactAPI) buildRequestContact(contact *Contact) requestUser {
 		Phone:                  contact.Phone,
 		UserID:                 contact.UserID,
 		Name:                   contact.Name,
-		LastRequestAt:          contact.LastRequestAt,
-		LastSeenIP:             contact.LastSeenIP,
-		UnsubscribedFromEmails: contact.UnsubscribedFromEmails,
+		UnsubscribedFromEmails: &contact.UnsubscribedFromEmails,
 		Companies:              api.getCompaniesToSendFromContact(contact),
 		CustomAttributes:       contact.CustomAttributes,
-		UpdateLastRequestAt:    contact.UpdateLastRequestAt,
-		NewSession:             contact.NewSession,
 	}
 }
 
 func (api ContactAPI) getCompaniesToSendFromContact(contact *Contact) []UserCompany {
 	if contact.Companies == nil {
 		return []UserCompany{}
+
 	}
-	return RequestUserMapper{}.MakeUserCompaniesFromCompanies(contact.Companies.Companies)
+
+	companies := make([]UserCompany, len(contact.Companies.Data))
+	for i, data := range contact.Companies.Data {
+		companies[i] = UserCompany{CompanyID: data.ID}
+	}
+	return companies
 }

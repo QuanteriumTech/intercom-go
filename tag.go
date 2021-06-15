@@ -38,6 +38,33 @@ func (t *TagService) Tag(taggingList *TaggingList) (Tag, error) {
 	return t.Repository.tag(taggingList)
 }
 
+func (l *TagList) AddressableList(id string) *AddressableList {
+	if l == nil {
+		return nil
+	}
+
+	data := make([]Addressable, len(l.Tags))
+	for i, t := range l.Tags {
+		data[i] = t.Addressable()
+	}
+
+	return &AddressableList{
+		Type:       "list",
+		Data:       data,
+		Url:        fmt.Sprintf("/contacts/%s/tags", id),
+		TotalCount: int64(len(data)),
+		HasMore:    false,
+	}
+}
+
+func (t *Tag) Addressable() Addressable {
+	return Addressable{
+		Type: "tag",
+		ID:   t.ID,
+		Url:  fmt.Sprintf("tags/%s", t.ID),
+	}
+}
+
 func (t Tag) String() string {
 	return fmt.Sprintf("[intercom] tag { id: %s name: %s }", t.ID, t.Name)
 }
